@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultContol!{% endblock %}
+
+{% block body %}
+
+{% include 'menu/_menu.html.twig'%}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper"> 
+{{ "now"|date("d/m/Y")}}
+    {% if id == 1  %}
+    <h1> {{ id}}! </h1>
+    {% set id =3 %}
+    <h1> {{ id}}! </h1>
+    <h1>{{ util.pseudo}}</h1>
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/Users/tomol/OneDrive/Bureau/master_informatique/stage/projet_level_up/backend/back_level/src/Controller/DefaultController.php'|file_link(0) }}">src/Controller/DefaultController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/tomol/OneDrive/Bureau/master_informatique/stage/projet_level_up/backend/back_level/templates/default/index.html.twig'|file_link(0) }}">templates/default/index.html.twig</a></code></li>
+    </ul>
+     {%  endif %}
+</div>
+{% endblock %}
