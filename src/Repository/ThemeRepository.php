@@ -38,8 +38,7 @@ class ThemeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
+    //    /**
 //     * @return Theme[] Returns an array of Theme objects
 //     */
 //    public function findByExampleField($value): array
@@ -54,7 +53,7 @@ class ThemeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Theme
+    //    public function findOneBySomeField($value): ?Theme
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

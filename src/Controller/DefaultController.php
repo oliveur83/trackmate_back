@@ -85,7 +85,7 @@ class DefaultController extends AbstractController
         return $reponse;
     }
     /**
-     * @Route("/select_ue", name="ue_default")
+     * @Route("/select_ue", name="ue_defaultt")
      */
     public function select_ue(ueRepository $utilerepo): JsonResponse
     {
@@ -96,7 +96,7 @@ class DefaultController extends AbstractController
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
-                'libelle' => $utilisateur->getLibelle(),
+                'libellee' => $utilisateur->getLibelle(),
                 'x' => $utilisateur->getX(),
                 'y' => $utilisateur->getY(),
                 // Ajoutez d'autres propriétés si nécessaire

@@ -39,7 +39,28 @@ class UeRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
+    /**
+     * Récupère toutes les Unités d'Enseignement liées à un thème spécifique.
+     *
+     * @param int $themeId L'ID du thème
+     * @return array Liste des Unités d'Enseignement liées au thème
+     */
+    /**
+     * Récupère toutes les Unités d'Enseignement liées à un thème spécifique.
+     *
+     * @param int $themeId L'ID du thème
+     * @return array Liste des Unités d'Enseignement liées au thème
+     */
+    public function findByThemeId(int $themeId): array
+    {
+        return $this->createQueryBuilder('ue')
+
+            ->andWhere('ue.id_theme = :themeId')
+            ->setParameter('themeId', $themeId)
+            ->getQuery()
+            ->getResult();
+    }
+    //    /**
 //     * @return Ue[] Returns an array of Ue objects
 //     */
 //    public function findByExampleField($value): array
@@ -54,7 +75,7 @@ class UeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Ue
+    //    public function findOneBySomeField($value): ?Ue
 //    {
 //        return $this->createQueryBuilder('u')
 //            ->andWhere('u.exampleField = :val')
