@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurThemeRepository::class)
- * @ORM\Table(name="utilisateur_themee")
+ * @ORM\Table(name="utilisateur_theme")
  */
 class UtilisateurTheme
 {
