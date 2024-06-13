@@ -1,7 +1,2 @@
-requete a faire :
-(page ue )
--selection ue ok mais faire en fonction du theme 
--idem pour les qcm 
-
-
--completer ma base de donnée 
+qcm modifier la table 
+question aussi 

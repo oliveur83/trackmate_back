@@ -37,25 +37,17 @@ class DefaultController extends AbstractController
      */
     public function select(UtilisateurRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
-
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
                 'pseudo' => $utilisateur->getPseudo(),
                 'password' => $utilisateur->getPassword(),
-                // Ajoutez d'autres propriétés si nécessaire
+                'id' => $utilisateur->getId(),
             ];
         }
-
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
-
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
-
         return $reponse;
     }
     /**
@@ -63,50 +55,57 @@ class DefaultController extends AbstractController
      */
     public function select_theme(ThemeRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
-
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
                 'libelle' => $utilisateur->getLibelle(),
                 'id_theme' => $utilisateur->getId(),
-                // Ajoutez d'autres propriétés si nécessaire
             ];
         }
-
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
-
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
-
         return $reponse;
     }
     /**
-     * @Route("/select_ue", name="ue_defaultt")
+     * @Route("/themeutil/{userId}", name="selectt_default")
+     */
+    public function ueutil(int $userId, UtilisateurThemeRepository $utilisateurThemeRepository): Response
+    {
+        $theme2 = $utilisateurThemeRepository->utilisateuridThemes($userId);
+        $data = [];
+        foreach ($theme2 as $utilisateurTheme) {
+            $utilisateur = $utilisateurTheme->getUtilisateur();
+            $theme = $utilisateurTheme->getTheme();
+
+            // Ajouter les informations de l'utilisateur et du thème au tableau
+            $data[] = [
+                'Utilisateur' => $utilisateur->getPseudo(),
+                'Theme' => $theme->getLibelle(),
+            ];
+        }
+        $jsonData = json_encode($data);
+        $response = new Response($jsonData);
+        return $response;
+    }
+    //----------------------------------
+    /**
+     * @Route("/select_ue_trait", name="ue_defaultt")
      */
     public function select_ue(ueRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
-
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
                 'libellee' => $utilisateur->getLibelle(),
                 'x' => $utilisateur->getX(),
                 'y' => $utilisateur->getY(),
-                // Ajoutez d'autres propriétés si nécessaire
             ];
         }
 
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
 
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
 
         return $reponse;
@@ -116,22 +115,16 @@ class DefaultController extends AbstractController
      */
     public function select_QCM(QcmRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
 
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
                 'libelle' => $utilisateur->getLibelle(),
-                // Ajoutez d'autres propriétés si nécessaire
             ];
         }
-
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
 
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
 
         return $reponse;
@@ -140,10 +133,8 @@ class DefaultController extends AbstractController
      */
     public function select_question(QuestionRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
 
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
@@ -152,10 +143,8 @@ class DefaultController extends AbstractController
             ];
         }
 
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
 
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
 
         return $reponse;
@@ -164,10 +153,8 @@ class DefaultController extends AbstractController
      */
     public function select_reponse(ReponseRepository $utilerepo): JsonResponse
     {
-        // Récupérer tous les utilisateurs depuis le référentiel
         $utilisateurs = $utilerepo->findAll();
 
-        // Construire un tableau associatif contenant les informations des utilisateurs
         $utilisateursArray = [];
         foreach ($utilisateurs as $utilisateur) {
             $utilisateursArray[] = [
@@ -177,10 +164,8 @@ class DefaultController extends AbstractController
             ];
         }
 
-        // Convertir le tableau associatif en JSON
         $utilisateursJson = json_encode($utilisateursArray);
 
-        // Créer une réponse JSON avec les informations des utilisateurs
         $reponse = new JsonResponse($utilisateursJson);
 
         return $reponse;
@@ -214,34 +199,7 @@ class DefaultController extends AbstractController
         return $reponse;
     }
 
-    /**
-     * @Route("/ueutil/{userId}", name="ueutil")
-     */
-    public function ueutil(int $userId, UtilisateurThemeRepository $utilisateurThemeRepository): Response
-    {
-        $theme2 = $utilisateurThemeRepository->utilisateuridThemes($userId);
-        $data = []; // Tableau pour stocker les données des thèmes
 
-        foreach ($theme2 as $utilisateurTheme) {
-            $utilisateur = $utilisateurTheme->getUtilisateur();
-            $theme = $utilisateurTheme->getTheme();
-
-            // Ajouter les informations de l'utilisateur et du thème au tableau
-            $data[] = [
-                'Utilisateur' => $utilisateur->getPseudo(),
-                'Theme' => $theme->getLibelle(),
-            ];
-        }
-
-        // Encodage des données en JSON
-        $jsonData = json_encode($data);
-
-        // Création de la réponse avec le contenu JSON
-        $response = new Response($jsonData);
-
-
-        return $response;
-    }
 
     /**
      * @Route("/ajoutueutil", methods={"POST"})
